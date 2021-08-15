@@ -2,8 +2,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
 import { DebounceInput } from 'react-debounce-input';
-import { getFilter } from 'redux/contacts/contactsSlices';
-import { getFilterValue } from 'redux/contacts/contactsSelectors';
+import { getFilterValue } from 'redux/contacts';
+import { setFilterValue } from 'redux/contacts/contactsSlices';
 
 function Filter() {
   const filter = useSelector(getFilterValue);
@@ -16,7 +16,7 @@ function Filter() {
       name="name"
       value={filter}
       debounceTimeout={700}
-      onChange={event => dispatch(getFilter(event.target.value))}
+      onChange={event => dispatch(setFilterValue(event.target.value))}
       placeholder="Search"
     />
   );

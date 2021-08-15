@@ -18,13 +18,13 @@ const contactsSlice = createSlice({
     // [fetchContacts.pending]: (_, { payload }) => payload,
     // [fetchContacts.rejected]: (_, { payload }) => payload,
     [addContact.fulfilled]: (state, { payload }) => {
-      return state.items.some(({ name }) => name === payload.name)
-        ? alert(`Contact ${payload.name} already exists`)
-        : { ...state, items: [payload, ...state.items], error: null };
+      return { ...state, items: [payload, ...state.items], error: null };
     },
+
     [addContact.rejected]: (state, { payload }) => {
       return { ...state, error: payload };
     },
+
     [deleteContact.fulfilled]: (state, { payload }) => {
       return {
         ...state,
@@ -38,13 +38,13 @@ const filterSlice = createSlice({
   name: 'filter',
   initialState: '',
   reducers: {
-    getFilter(_, { payload }) {
+    setFilterValue(_, { payload }) {
       return payload;
     },
   },
 });
 
-export const { getFilter } = filterSlice.actions;
+export const { setFilterValue } = filterSlice.actions;
 
 const contacts = contactsSlice.reducer;
 const filter = filterSlice.reducer;

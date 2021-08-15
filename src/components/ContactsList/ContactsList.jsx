@@ -1,9 +1,13 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
+import toast from 'react-hot-toast';
 import { FaUser, FaPhoneAlt } from 'react-icons/fa';
-import { fetchContacts, deleteContact } from 'redux/contacts';
-import { getFiltredContactsList } from 'redux/contacts/contactsSelectors';
+import {
+  fetchContacts,
+  deleteContact,
+  getFiltredContactsList,
+} from 'redux/contacts';
 
 import {
   Contacts,
@@ -19,6 +23,11 @@ function ContactsList() {
   useEffect(() => {
     dispatch(fetchContacts());
   }, [dispatch]);
+
+  const handleOnDeleteBtn = (id, name) => {
+    dispatch(deleteContact(id));
+    toast.success(`Contact ${name} deleted`);
+  };
 
   return (
     <Contacts>
@@ -38,7 +47,7 @@ function ContactsList() {
                   <span>{number}</span>
                 </ContactsDetails>
               </div>
-              <Button type="button" onClick={() => dispatch(deleteContact(id))}>
+              <Button type="button" onClick={() => handleOnDeleteBtn(id, name)}>
                 Delete
               </Button>
             </ContactsItem>

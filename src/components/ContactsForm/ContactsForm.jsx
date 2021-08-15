@@ -1,10 +1,10 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { nanoid } from 'nanoid';
 import { Formik, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import 'yup-phone';
-// import toast from 'react-hot-toast';
-import { addContact } from 'redux/contacts';
+import toast from 'react-hot-toast';
+import { addContact, getFiltredContactsList } from 'redux/contacts';
 import {
   FormContainer,
   Button,
@@ -21,7 +21,17 @@ const validationSchema = Yup.object().shape({
 });
 
 function ContactsForm() {
+  const contacts = useSelector(getFiltredContactsList);
   const dispatch = useDispatch();
+
+  const handleOnSubmit = newContact => {
+    if (contacts.some(({ name }) => name === newContact.name)) {
+      toast.error(`Contact ${newContact.name} already exists`);
+      return;
+    }
+    dispatch(addContact(newContact));
+    toast.success(`Contact ${newContact.name} created`);
+  };
 
   let nameInputId = nanoid(3);
   let phoneInputId = nanoid(3);
@@ -32,7 +42,7 @@ function ContactsForm() {
       validationSchema={validationSchema}
       onSubmit={(values, { resetForm }) => {
         const { name, number } = values;
-        dispatch(addContact({ name, number }));
+        handleOnSubmit({ name, number });
         resetForm();
       }}
     >
