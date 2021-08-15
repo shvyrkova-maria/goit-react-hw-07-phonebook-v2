@@ -1,56 +1,13 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import axios from 'axios';
 
-export const contactApi = createApi({
-  reducerPath: 'contactApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: 'https://611634c28f38520017a3876c.mockapi.io',
-  }),
-  tagTypes: ['Contacts'],
+axios.defaults.baseURL = 'https://611634c28f38520017a3876c.mockapi.io/';
 
-  endpoints: builder => ({
-    fetchContacts: builder.query({
-      query: () => `/contacts`,
-      providesTags: ['Contacts'],
-    }),
+export async function fetchContacts() {
+  const { data } = await axios.get(`/contacts`);
+  return data;
+}
 
-    addContact: builder.mutation({
-      query: newContact => ({
-        url: `/contacts`,
-        method: 'POST',
-        body: newContact,
-      }),
-      invalidatesTags: ['Contacts'],
-    }),
-
-    deleteContact: builder.mutation({
-      query: contactId => ({
-        url: `/contacts/${contactId}`,
-        method: 'DELETE',
-      }),
-      invalidatesTags: ['Contacts'],
-    }),
-  }),
-});
-
-export const {
-  useFetchContactsQuery,
-  useAddContactMutation,
-  useDeleteContactMutation,
-} = contactApi;
-
-// async function onCacheEntryAdded(
-//   arg: QueryArg,
-//   {
-//     dispatch,
-//     getState,
-//     extra,
-//     requestId,
-//     cacheEntryRemoved,
-//     cacheDataLoaded,
-//     getCacheEntry,
-//   }: MutationCacheLifecycleApi
-// ): Promise<void>
-
-// state.some(({ name }) => name === payload.name)
-//   ? alert(`Contact ${payload.name} already exists`)
-//   : [payload, ...state],
+// export async function fetchContactById(contactId) {
+//   const { data } = await axios.get(`/contacts/${contactId}`);
+//   return data;
+// }
