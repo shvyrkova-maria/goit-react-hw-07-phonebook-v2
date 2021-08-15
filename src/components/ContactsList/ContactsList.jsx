@@ -2,10 +2,9 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { FaUser, FaPhoneAlt } from 'react-icons/fa';
-// import toast from 'react-hot-toast';
-import { actions } from 'redux/contacts';
+import { fetchContacts, deleteContact } from 'redux/contacts';
 import { getFiltredContactsList } from 'redux/contacts/contactsSelectors';
-import { fetchContacts } from 'redux/contacts';
+
 import {
   Contacts,
   ContactsItem,
@@ -39,10 +38,7 @@ function ContactsList() {
                   <span>{number}</span>
                 </ContactsDetails>
               </div>
-              <Button
-                type="button"
-                onClick={() => dispatch(actions.deleteContact(id))}
-              >
+              <Button type="button" onClick={() => dispatch(deleteContact(id))}>
                 Delete
               </Button>
             </ContactsItem>

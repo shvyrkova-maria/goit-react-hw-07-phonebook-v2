@@ -4,7 +4,7 @@ import { Formik, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import 'yup-phone';
 // import toast from 'react-hot-toast';
-import { actions } from 'redux/contacts';
+import { addContact } from 'redux/contacts';
 import {
   FormContainer,
   Button,
@@ -32,7 +32,7 @@ function ContactsForm() {
       validationSchema={validationSchema}
       onSubmit={(values, { resetForm }) => {
         const { name, number } = values;
-        dispatch(actions.addContact({ name, number }));
+        dispatch(addContact({ name, number }));
         resetForm();
       }}
     >

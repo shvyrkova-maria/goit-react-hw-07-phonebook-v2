@@ -8,3 +8,19 @@ export const fetchContacts = createAsyncThunk(
     return contacts;
   },
 );
+
+export const addContact = createAsyncThunk(
+  'contacts/addContact',
+  async newContact => {
+    const contact = await contactApi.addContact(newContact);
+    return contact;
+  },
+);
+
+export const deleteContact = createAsyncThunk(
+  'contacts/deleteContact',
+  async contactId => {
+    await contactApi.deleteContact(contactId);
+    return contactId;
+  },
+);
