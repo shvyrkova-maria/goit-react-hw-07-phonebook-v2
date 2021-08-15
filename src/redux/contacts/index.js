@@ -3,4 +3,6 @@ export {
   getFilterValue,
   getContactsList,
   getFiltredContactsList,
+  getError,
+  getLoadingStatus,
 } from './contactsSelectors';

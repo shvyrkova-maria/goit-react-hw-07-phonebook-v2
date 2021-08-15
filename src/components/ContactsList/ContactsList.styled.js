@@ -12,11 +12,25 @@ export const ContactsItem = styled.li`
   padding: 10px 12px;
   border: 1px solid var(--main-color);
   border-radius: 5px;
+  animation: scaleIn 1s cubic-bezier(0.465, 0.183, 0.153, 0.946);
+
   &:not(:last-child) {
     margin-bottom: 10px;
   }
+
   &:hover {
     background-color: var(--bg-hover-color);
+  }
+
+  @keyframes scaleIn {
+    from {
+      transform: scale(0);
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 `;
 

@@ -7,6 +7,7 @@ import {
   fetchContacts,
   deleteContact,
   getFiltredContactsList,
+  getLoadingStatus,
 } from 'redux/contacts';
 
 import {
@@ -17,6 +18,7 @@ import {
 } from 'components/ContactsList/ContactsList.styled';
 
 function ContactsList() {
+  const isLoading = useSelector(getLoadingStatus);
   const contacts = useSelector(getFiltredContactsList);
   const dispatch = useDispatch();
 
@@ -53,6 +55,7 @@ function ContactsList() {
             </ContactsItem>
           );
         })}
+      {isLoading && <div>Loading...</div>}
     </Contacts>
   );
 }
